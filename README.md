@@ -21,7 +21,6 @@ Modules are located within respective workbooks or available for individual down
 	- Math_Estimation.bas *-Round up "stamp" function*
 	- Math_Geometry.bas *-2D distance, determine if a point lies within a polygon*
 	- Math_GreatCircle.bas *-Find various distances and conversions on a sphere*
-	- Math_Random_16bit.bas *-Generates seeded uniformly distributed random numbers between 0 and 1*
 	- Math_Randoms.bas *-Return a random number between two numbers or randomly return '1' at a prescribed rate*
 	- Math_RandTriangle.bas *-Return random numbers along a triangle distribution*
 	- Sample_FileExport.bas *-Sample code of exporting a worksheet to pdf or xlsx, verify valid filenames*
@@ -29,3 +28,5 @@ Modules are located within respective workbooks or available for individual down
 	- Sample_ShapeAlignment.bas *-Sample code of aligining shapes for a tutorial*
 	- Standards_Documentation.bas *-Header template for modules and procedures*
 	- VBA_IO.bas *-Export all of a workbook's VBA modules at once*
+- Math_Random_16bit.bas
+	- Math_Random_16bit.bas *-Generates seeded uniformly distributed random numbers between 0 and 1*
