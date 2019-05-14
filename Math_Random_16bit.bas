@@ -2,9 +2,9 @@ Attribute VB_Name = "Math_Random_16bit"
 Option Explicit
 Option Base 1
 
-Dim s1 As Integer
-Dim s2 As Integer
-Dim s3 As Integer
+Dim s1 As Integer ' Make Public to use across modules
+Dim s2 As Integer ' Make Public to use across modules
+Dim s3 As Integer ' Make Public to use across modules
 
 Sub verifyS1(ByRef myVar As Integer)
   If Abs(myVar) <= 1 Then myVar = 2
@@ -21,9 +21,9 @@ End Sub
 
 ' Generates uniformly distributed random numbers between 0 and 1
 ' Based on: Figure 4. A Portable Generator for 16-bit Computers
-' L’Ecuyer. P. Efficient and portable combined random number generators.
+' Lâ€™Ecuyer. P. Efficient and portable combined random number generators.
 ' Communications of the ACM 31, 6 (June 1988) p. 748.
-' This program uses the Integer data type. Therefore, possible seed values range from –32,768 to 32,767.
+' This program uses the Integer data type. Therefore, possible seed values range from â€“32,768 to 32,767.
 Function Uniform() As Double
   Dim Z As Integer
   Dim k As Integer
@@ -52,57 +52,4 @@ Function Uniform() As Double
   Uniform = Z * 0.000030899
 End Function
 
-' Test output for Uniform function
-' Caution! This will overwrite data!
-Sub testUniform()
-  s1 = 100
-  s2 = 100
-  s3 = 101
-  Dim thisWorksheet As Worksheet
-  Set thisWorksheet = ThisWorkbook.Worksheets(1)
-  
-  Dim i As Long
-  For i = 1 To 15 ' 15 Examples of random numbers
-    With thisWorksheet
-      .Cells(i, 1) = i
-      .Cells(i, 2) = Uniform
-      'Debug.Print Uniform
-    End With
-  Next i
-End Sub
 
-Sub testUniform2()
-  Dim thisWorksheet As Worksheet
-  Set thisWorksheet = ThisWorkbook.Worksheets(1)
-  With thisWorksheet
-    On Error Resume Next
-    s1 = CInt(.Cells(2, 5).Value)
-    s2 = CInt(.Cells(3, 5).Value)
-    s3 = CInt(.Cells(4, 5).Value)
-    If Err.Number <> 0 Then
-      MsgBox "Data Entry Validation", vbExclamation, "Ensure cells E2:E4 are whole numbers between -32,768 and 32,767 not including 0"
-      On Error GoTo 0
-      Exit Sub
-    End If
-  End With
-  
-  Dim i As Long
-  Dim maxIterations As Long
-  With thisWorksheet
-    If .Cells(1, 5).Value >= 1 And Abs(.Cells(1, 5)) < 32767 Then
-      maxIterations = CLng(.Cells(1, 5).Value)
-    Else
-      maxIterations = 1
-    End If
-  End With
-  
-  thisWorksheet.Columns("A:B").Clear
-  
-  For i = 1 To maxIterations ' 15 Examples of random numbers
-    With thisWorksheet
-      .Cells(i, 1) = i
-      .Cells(i, 2) = Uniform
-      'Debug.Print Uniform
-    End With
-  Next i
-End Sub
