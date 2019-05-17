@@ -173,7 +173,7 @@ Sub DeleteThisSheet(thisSheet As Worksheet)
 End Sub
 
 '***************************************************************************
-'Procedure: wksExists¤
+'Procedure: wksExistsÂ¤
 'Purpose: Check if sheet exists by sheet name
 'Comments: Returns True if sheet is found, False if not found
 'Changes----------------------------------------------
@@ -202,8 +202,13 @@ End Function
 'Changes----------------------------------------------
 ' Date        Programmer        Change
 ' 2018/09/01  Chris Kinion      Written
+' 2019/05/17  Chris Kinion      Added Default Sheet Name
 '***************************************************************************
 Sub AddBlankSheetByName(strSheetName As String)
+  If strSheetName = "" Then
+    strSheetName = "Data." & Format(Now(), "YYMMDD") & "-" & Format(Time(), "HHMMSS")
+  End If
+
   If wksExists(strSheetName) Then
     ThisWorkbook.Worksheets(strSheetName).Activate
     Cells.Delete
