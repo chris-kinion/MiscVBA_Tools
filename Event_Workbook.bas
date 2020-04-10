@@ -1,18 +1,61 @@
 Attribute VB_Name = "Event_Workbook"
 '***************************************************************************
-'Module: Event_Workbook
-'Procedures:  IsWorkBookOpen
-            ' OpenWorkBook
-            ' CloseWorkBook
-            ' LoadFileUsingFilter
-            ' SaveThisSheet
-            ' UnhideWorkbooks
+'Module:      Event_Workbook
+'Procedures:  
+'             GetWorkbookPath:     Get path of .xlsx or .xlsm file
+'             IsWorkBookOpen
+'             OpenWorkBook
+'             CloseWorkBook
+'             LoadFileUsingFilter
+'             SaveThisSheet
+'             UnhideWorkbooks
 'Changes----------------------------------------------
 ' Date        Programmer        Change
 ' 09/12/2018  Chris Kinion      Created
+' 04/10/2020  Chris Kinion      Added GetWorkbookPath
 '***************************************************************************
 Option Explicit
 Option Base 1
+
+'***************************************************************************
+'Procedure:   GetWorkbookPath
+'Purpose:     Get path of .xlsx or .xlsm file
+'Comments:
+'Changes----------------------------------------------
+' Date        Programmer        Change
+' 04/10/2020  Chris Kinion      Created
+'***************************************************************************
+Sub GetWorkbookPath(strWorkbookPath As String)
+  Dim strStartPath As String
+  Dim fDialog As FileDialog
+  
+  strStartPath = Application.ThisWorkbook.Path & "\"
+  
+  Set fDialog = Application.FileDialog(msoFileDialogFilePicker)
+  With fDialog
+    .AllowMultiSelect = False
+    .Title = "Select a file"
+    .InitialFileName = strStartPath
+    With .Filters
+      .Clear
+      .Add "Excel Files", "*.xlsx"
+      .Add "Macro Enabled Excel Files", "*.xlsm"
+      .Add "All Files", "*.*"
+    End With
+    If .Show = -1 Then ' Return path
+        strWorkbookPath = .SelectedItems(1) 'Debug.Print .SelectedItems(1)
+      Else
+        strWorkbookPath = ""
+    End If
+  End With
+  
+End Sub
+
+Sub testGetWorkbookPath()
+  Dim myStr As String
+  Call GetWorkbookPath(myStr)
+  Debug.Print myStr
+End Sub
 
 '***************************************************************************
 'Procedure: IsWorkBookOpen
