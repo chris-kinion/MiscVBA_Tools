@@ -1,0 +1,30 @@
+Option Explicit
+Option Base 1
+
+Public Const GIVE_UP As Long = 10
+
+Sub BangHeadAgainstWall(frustration As Double)
+  Dim Start As Single
+  Start = Timer
+  Do
+  DoEvents
+  Loop Until (Timer - Start) >= frustration
+End Sub
+
+Sub CorrectBugs()
+  Dim attempt As Long
+  Dim foundBugs As Long
+  Dim frustration As Double
+  
+  foundBugs = 99
+  frustration = 0.5
+  For attempt = 1 To GIVE_UP
+    Debug.Print foundBugs & " bugs in the code, " & foundBugs & " bugs in the code."
+    Debug.Print "Take one down and patch it up."
+    foundBugs = foundBugs + 9
+    Debug.Print foundBugs & " bugs in the code..." & vbNewLine
+    frustration = frustration + 0.25
+    Call BangHeadAgainstWall(frustration)
+  Next attempt
+  Debug.Print GIVE_UP & " attempts after " & foundBugs & " bugs and frustration building to level " & frustration
+End Sub
